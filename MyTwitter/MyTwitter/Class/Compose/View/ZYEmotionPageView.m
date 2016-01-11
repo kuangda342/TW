@@ -1,0 +1,154 @@
+
+#import "ZYEmotionPageView.h"
+#import "ZYEmotionPopView.h"
+#import "UIView+SizeExtension.h"
+#import "ZYEmotionBtn.h"
+#import "ZYEmotionTool.h"
+@interface ZYEmotionPageView()
+/** 点击表情后弹出的放大镜 */
+@property (nonatomic, strong) ZYEmotionPopView *popView;
+/** 删除按钮 */
+@property (nonatomic, weak) UIButton *deleteButton;
+
+@end
+@implementation ZYEmotionPageView
+- (void)setEmotions:(NSArray *)emotions
+{
+    _emotions = emotions;
+    
+    NSUInteger count = emotions.count;
+    for (int i = 0; i<count; i++) {
+        ZYEmotionBtn *btn = [[ZYEmotionBtn alloc] init];
+        [self addSubview:btn];
+        
+        // 设置表情数据
+        btn.emotion = emotions[i];
+        
+        // 监听按钮点击
+        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+- (ZYEmotionPopView *)popView
+{
+    if (!_popView) {
+        self.popView = [ZYEmotionPopView popView];
+    }
+    return _popView;
+}
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // 1.删除按钮
+        UIButton *deleteButton = [[UIButton alloc] init];
+        [deleteButton setImage:[UIImage imageNamed:@"compose_emotion_delete_highlighted"] forState:UIControlStateHighlighted];
+        [deleteButton setImage:[UIImage imageNamed:@"compose_emotion_delete"] forState:UIControlStateNormal];
+        [deleteButton addTarget:self action:@selector(deleteClick) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:deleteButton];
+        self.deleteButton = deleteButton;
+        
+        // 2.添加长按手势
+        [self addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressPageView:)]];
+    }
+    return self;
+}
+- (ZYEmotionBtn *)emotionButtonWithLocation:(CGPoint)location
+{
+    NSUInteger count = self.emotions.count;
+    for (int i = 0; i<count; i++) {
+        ZYEmotionBtn *btn = self.subviews[i + 1];
+        if (CGRectContainsPoint(btn.frame, location)) {
+            
+            // 已经找到手指所在的表情按钮了，就没必要再往下遍历
+            return btn;
+        }
+    }
+    return nil;
+}
+
+-(void)deleteClick{
+
+[[NSNotificationCenter defaultCenter] postNotificationName:@"deleteemotion" object:nil];
+
+}
+-(void)longPressPageView:(UILongPressGestureRecognizer *)recognizer{
+    CGPoint location = [recognizer locationInView:recognizer.view];
+    // 获得手指所在的位置\所在的表情按钮
+    ZYEmotionBtn *btn = [self emotionButtonWithLocation:location];
+    
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateEnded: // 手指已经不再触摸pageView
+            // 移除popView
+            [self.popView removeFromSuperview];
+            
+            // 如果手指还在表情按钮上
+            if (btn) {
+                // 发出通知
+                [self selectEmotion:btn.emotion];
+            }
+            break;
+            
+        case UIGestureRecognizerStateBegan: // 手势开始（刚检测到长按）
+        case UIGestureRecognizerStateChanged: { // 手势改变（手指的位置改变）
+            [self.popView showFrom:btn];
+            break;
+        }
+            
+        default:
+            break;
+    }
+
+
+
+}
+- (void)selectEmotion:(ZYEmotion *)emotion
+{
+    // 将这个表情存进沙盒
+    [ZYEmotionTool addRecentEmotion:emotion];
+    
+    // 发出通知
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    userInfo[@"selectemotionkey"] = emotion;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"selectemotion" object:nil userInfo:userInfo];
+}
+- (void)btnClick:(ZYEmotionBtn *)btn
+{
+    // 显示popView
+    [self.popView showFrom:btn];
+    
+    // 等会让popView自动消失
+    //    [self.popView removeFromSuperview];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.popView removeFromSuperview];
+    });
+    
+    // 发出通知
+    [self selectEmotion:btn.emotion];
+}
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    // 内边距(四周)
+    CGFloat inset = 20;
+    NSUInteger count = self.emotions.count;
+    CGFloat btnW = (self.width - 2 * inset) / ZYEmotionMaxCols;
+    CGFloat btnH = (self.height - inset) / ZYEmotionMaxRows;
+    for (int i = 0; i<count; i++) {
+        UIButton *btn = self.subviews[i + 1];
+        btn.width = btnW;
+        btn.height = btnH;
+        btn.x = inset + (i%ZYEmotionMaxCols) * btnW;
+        btn.y = inset + (i/ZYEmotionMaxCols) * btnH;
+    }
+    
+    // 删除按钮
+    self.deleteButton.width = btnW;
+    self.deleteButton.height = btnH;
+    self.deleteButton.y = self.height - btnH;
+    self.deleteButton.x = self.width - inset - btnW;
+}
+
+@end
