@@ -44,7 +44,7 @@
                 
                 textAttachment.image = [UIImage imageNamed:imageName];
                 
-                CGFloat attchWH = 20;
+                CGFloat attchWH = 18;
                 textAttachment.bounds = CGRectMake(0, -4, attchWH, attchWH);
 
                 

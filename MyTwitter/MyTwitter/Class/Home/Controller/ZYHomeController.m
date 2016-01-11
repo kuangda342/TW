@@ -102,6 +102,7 @@
     [ZYNetTool get:@"https://api.weibo.com/2/statuses/friends_timeline.json" params:params success:^(id json) {
         // 将 "微博字典"数组 转为 "微博模型"数组
         NSArray *newStatuses = [ZYStatus objectArrayWithKeyValuesArray:json[@"statuses"]];
+        NSLog(@"%@",json[@"statuses"]);
         
         // 将 HWStatus数组 转为 HWStatusFrame数组
         NSArray *newFrames = [self statusFramesWithStatuses:newStatuses];
