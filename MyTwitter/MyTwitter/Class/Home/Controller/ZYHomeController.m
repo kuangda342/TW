@@ -30,16 +30,16 @@
         _cover.backgroundColor=[UIColor colorWithWhite:0.0 alpha:0.5];
         _cover.alpha=0.0;
         [self.navigationController.view addSubview:_cover];
-        [_cover addTarget:self action:@selector(bigImage) forControlEvents:UIControlEventTouchUpInside];
+        [_cover addTarget:self action:@selector(bigImage) forControlEvents:UIControlEventTouchDown];
     }
     return _cover;
 }
 -(UIButton *)iconButton{
     if (_iconButton==nil) {
     UIButton *btn=[[UIButton alloc]initWithFrame:self.navigationController.view.bounds];
-//        btn.backgroundColor=[UIColor blackColor];
+        btn.imageView.contentMode=UIViewContentModeScaleAspectFit;
         [self.navigationController.view addSubview:btn];
-        [btn addTarget:self action:@selector(bigImage) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(bigImage) forControlEvents:UIControlEventTouchDown];
 
         _iconButton=btn;
     }
@@ -49,15 +49,15 @@
     if (self.cover.alpha==0.0) {
         
         [self.navigationController.view bringSubviewToFront:self.iconButton];
-        [UIView animateWithDuration:0.2f animations:^{
+        
             self.iconButton.frame=self.navigationController.view.bounds;
             self.cover.alpha=1.0;
-        }];
+       
     }else{
-        [UIView animateWithDuration:0.2f animations:^{
+        
             [self.iconButton removeFromSuperview];
             self.cover.alpha=0.0;
-        } ];
+        
     }
 }
 

@@ -35,12 +35,8 @@
     
     // 设置图片
     NSString *thumbnail=photo.thumbnail_pic;
-    NSString *bmiddle=[thumbnail stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
-//    NSLog(@"%@",bmiddle);
     NSURL *url1=[NSURL URLWithString:thumbnail];
-    NSURL *url2=[NSURL URLWithString:bmiddle];
     [self sd_setBackgroundImageWithURL:url1 forState:UIControlStateNormal];
-    [self sd_setBackgroundImageWithURL:url2 forState:UIControlStateSelected];
     [self addTarget:self action:@selector(pictureclick:) forControlEvents:UIControlEventTouchUpInside];
     
     // 显示\隐藏gif控件
@@ -48,7 +44,6 @@
     self.gifView.hidden = ![photo.thumbnail_pic.lowercaseString hasSuffix:@"gif"];
 }
 -(void)pictureclick:(ZYStatusPhoto *)btn{
-    self.selected=YES;
     ZYPhoto *photo=btn.photo;
     NSString *thumbnail=photo.thumbnail_pic;
     NSString *bmiddle=[thumbnail stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
