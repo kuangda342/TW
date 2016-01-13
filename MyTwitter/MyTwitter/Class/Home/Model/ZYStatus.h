@@ -38,7 +38,7 @@
 /**	int	表态数*/
 @property (nonatomic, assign) int attitudes_count;
 
-@property (nonatomic, copy) NSString *bmiddle_pic;
+
 
 
 @end
