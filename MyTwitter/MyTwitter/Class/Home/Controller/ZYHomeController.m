@@ -13,11 +13,60 @@
 #import "ZYStatusFrame.h"
 #import "ZYStatus.h"
 #import "ZYTwCellTableViewCell.h"
+#import "ZYStatusPhoto.h"
+#import "ZYPhoto.h"
+#import "UIButton+WebCache.h"
 @interface ZYHomeController ()<ZYDropDownMenuDelegate>
 @property (nonatomic, strong) NSMutableArray *wbMdls;
+@property(nonatomic,weak)UIButton * iconButton;
+@property(nonatomic,strong)UIButton *cover;
+@property(nonatomic,strong)NSURL * url;
 @end
 
 @implementation ZYHomeController
+-(UIButton *)cover{
+    if (_cover==nil) {
+        _cover=[[UIButton alloc]initWithFrame:self.navigationController.view.bounds];
+        _cover.backgroundColor=[UIColor colorWithWhite:0.0 alpha:0.5];
+        _cover.alpha=0.0;
+        [self.navigationController.view addSubview:_cover];
+        [_cover addTarget:self action:@selector(bigImage) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _cover;
+}
+-(UIButton *)iconButton{
+    if (_iconButton==nil) {
+    UIButton *btn=[[UIButton alloc]initWithFrame:self.navigationController.view.bounds];
+//        btn.backgroundColor=[UIColor redColor];
+        [self.navigationController.view addSubview:btn];
+        _iconButton=btn;
+    }
+    return _iconButton;
+
+
+}
+- (void)bigImage{
+    if (self.cover.alpha==0.0) {
+        
+        [self.view bringSubviewToFront:self.iconButton];
+        CGFloat w=self.view.bounds.size.width;
+        CGFloat h=w;
+        CGFloat y=(self.view.bounds.size.height-h)*0.5;
+        
+        [UIView animateWithDuration:1.0f animations:^{
+            self.iconButton.frame=CGRectMake(0, y, w, h);
+            self.cover.alpha=1.0;
+        }];
+    }else{
+        [UIView animateWithDuration:1.0f animations:^{
+            [self.iconButton removeFromSuperview];
+            self.cover.alpha=0.0;
+        } ];
+    }
+}
+
+
+
 -(NSMutableArray *)wbMdls{
     if (_wbMdls==nil) {
         _wbMdls=[NSMutableArray array];
@@ -37,16 +86,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self setupDisplay];
     self.tableView.backgroundColor=[UIColor colorWithRed:211/255.0 green:211/255.0 blue:211/255.0 alpha:1];
     [self setupNav];
     [self setupUserInfo];
     [self setupDownRefresh];
     [self setupUpRefresh];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pictureDidSelect:) name:@"pictureUrl" object:nil];
+
+    
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(setupUnreadCount) userInfo:nil repeats:YES];
     // 主线程也会抽时间处理一下timer（不管主线程是否正在其他事件）
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 
     
+}
+-(void)pictureDidSelect:(NSNotification *)notification{
+    self.url=notification.userInfo[@"pictureUrl"];
+    [self.iconButton sd_setImageWithURL:self.url forState:UIControlStateNormal];
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 - (void)setupUnreadCount
 {

@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
-@class ZYPhoto;
+@class ZYPhoto,ZYStatusPhoto;
 @interface ZYStatusPhoto : UIButton
 @property (nonatomic, strong) ZYPhoto *photo;
+
 @end
