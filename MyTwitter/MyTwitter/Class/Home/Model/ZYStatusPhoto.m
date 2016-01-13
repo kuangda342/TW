@@ -4,7 +4,6 @@
 #import "UIView+SizeExtension.h"
 #import "UIButton+WebCache.h"
 @interface ZYStatusPhoto()
-//@property (nonatomic,strong)UIButton *cover;
 @property (nonatomic, weak) UIImageView *gifView;
 @end
 @implementation ZYStatusPhoto

@@ -16,49 +16,122 @@
 #import "ZYStatusPhoto.h"
 #import "ZYPhoto.h"
 #import "UIButton+WebCache.h"
-@interface ZYHomeController ()<ZYDropDownMenuDelegate>
+#import "UIImageView+WebCache.h"
+@interface ZYHomeController ()<ZYDropDownMenuDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSMutableArray *wbMdls;
 @property(nonatomic,weak)UIButton * iconButton;
 @property(nonatomic,strong)UIButton *cover;
 @property(nonatomic,strong)NSURL * url;
+@property(nonatomic,weak)UIScrollView *scrollView;
+@property(nonatomic,weak)UIImageView *imageView;
 @end
 
 @implementation ZYHomeController
--(UIButton *)cover{
-    if (_cover==nil) {
-        _cover=[[UIButton alloc]initWithFrame:self.navigationController.view.bounds];
-        _cover.backgroundColor=[UIColor colorWithWhite:0.0 alpha:0.5];
-        _cover.alpha=0.0;
-        [self.navigationController.view addSubview:_cover];
-        [_cover addTarget:self action:@selector(bigImage) forControlEvents:UIControlEventTouchDown];
+-(UIImageView *)imageView{
+    if (_imageView==nil) {
+        UIImageView *img=[[UIImageView alloc]initWithFrame:self.navigationController.view.bounds];
+        [self.scrollView addSubview:img];
+        img.contentMode=UIViewContentModeScaleAspectFit;
+        _imageView=img;
     }
-    return _cover;
-}
--(UIButton *)iconButton{
-    if (_iconButton==nil) {
-    UIButton *btn=[[UIButton alloc]initWithFrame:self.navigationController.view.bounds];
-        btn.imageView.contentMode=UIViewContentModeScaleAspectFit;
-        [self.navigationController.view addSubview:btn];
-        [btn addTarget:self action:@selector(bigImage) forControlEvents:UIControlEventTouchDown];
+    return _imageView;
 
-        _iconButton=btn;
-    }
-    return _iconButton;
 }
-- (void)bigImage{
-    if (self.cover.alpha==0.0) {
-        
-        [self.navigationController.view bringSubviewToFront:self.iconButton];
-        
-            self.iconButton.frame=self.navigationController.view.bounds;
-            self.cover.alpha=1.0;
-       
-    }else{
-        
-            [self.iconButton removeFromSuperview];
-            self.cover.alpha=0.0;
-        
+- (void)addPinch
+{
+    
+    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
+    // 设置代理的原因：想要同时支持多个手势
+    pinch.delegate = self;
+    [self.scrollView addGestureRecognizer:pinch];
+    
+}
+
+- (void)pinch:(UIPinchGestureRecognizer *)pinch
+{
+    
+    NSLog(@"---4444-");
+    self.imageView.transform = CGAffineTransformScale(self.imageView.transform, pinch.scale, pinch.scale);
+    self.imageView.center=self.view.center;
+    
+    // 复位
+    pinch.scale = 1;
+}
+- (void)addTap
+{
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(Tap:)];
+    // 设置代理的原因：想要同时支持多个手势
+    tap.delegate = self;
+    [self.scrollView addGestureRecognizer:tap];
+    
+}
+
+- (void)Tap:(UITapGestureRecognizer *)tap
+{
+    
+    NSLog(@"----");
+    [self.scrollView removeFromSuperview];
+//    [self bigImage];
+}
+
+
+
+
+
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imageView;
+}
+
+-(UIScrollView *)scrollView{
+    if (_scrollView==nil) {
+        UIScrollView *vs=[[UIScrollView alloc]initWithFrame:self.navigationController.view.bounds];
+        [self.navigationController.view addSubview:vs];
+        _scrollView=vs;
+        _scrollView.contentSize=self.iconButton.size;
+        _scrollView.maximumZoomScale=5.0;
+        _scrollView.minimumZoomScale=0.2;
+        _scrollView.bounces=NO;
+        _scrollView.showsHorizontalScrollIndicator=NO;
+        _scrollView.showsVerticalScrollIndicator=NO;
     }
+    return _scrollView;
+}
+//-(UIButton *)cover{
+//    if (_cover==nil) {
+//        _cover=[[UIButton alloc]initWithFrame:self.navigationController.view.bounds];
+//        _cover.backgroundColor=[UIColor colorWithWhite:0.0 alpha:0.5];
+//        _cover.alpha=0.0;
+//        [self.navigationController.view addSubview:_cover];
+//        [_cover addTarget:self action:@selector(bigImage) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _cover;
+//}
+//-(UIButton *)iconButton{
+//    if (_iconButton==nil) {
+//    UIButton *btn=[[UIButton alloc]initWithFrame:self.navigationController.view.bounds];
+//        btn.imageView.contentMode=UIViewContentModeScaleAspectFit;
+//        [self.scrollView addSubview:btn];
+//        [btn addTarget:self action:@selector(bigImage) forControlEvents:UIControlEventTouchDown];
+//
+//        _iconButton=btn;
+//    }
+//    return _iconButton;
+//}
+- (void)bigImage{
+//    if (self.cover.alpha==0.0) {
+    
+        [self.navigationController.view bringSubviewToFront:self.scrollView];
+        self.scrollView.frame=self.navigationController.view.bounds;
+//            self.iconButton.frame=self.navigationController.view.bounds;
+//            self.cover.alpha=1.0;
+//    }else{
+//        [self.scrollView removeFromSuperview];
+//            [self.iconButton removeFromSuperview];
+//            self.cover.alpha=0.0;
+//    }
 }
 
 
@@ -82,6 +155,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self addPinch];
+//    [self addTap];
     self.tableView.backgroundColor=[UIColor colorWithRed:211/255.0 green:211/255.0 blue:211/255.0 alpha:1];
     [self setupNav];
     [self setupUserInfo];
@@ -97,8 +172,10 @@
     
 }
 -(void)pictureDidSelect:(NSNotification *)notification{
+    self.scrollView.delegate=self;
     self.url=notification.userInfo[@"pictureUrl"];
-    [self.iconButton sd_setImageWithURL:self.url forState:UIControlStateNormal];
+//    [self.iconButton sd_setImageWithURL:self.url forState:UIControlStateNormal];
+    [self.imageView sd_setImageWithURL:self.url];
     [self bigImage];
     
 }
