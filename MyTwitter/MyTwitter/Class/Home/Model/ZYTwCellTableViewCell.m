@@ -11,6 +11,7 @@
 #import "ZYEmotion.h"
 #import "MJExtension.h"
 #import "NSString+test.h"
+#import <UIKit/UIDataDetectors.h>
 @interface ZYTwCellTableViewCell()
 /* 原创微博 */
 /** 原创微博整体 */
@@ -232,7 +233,9 @@
     
     /** 正文 */
     NSAttributedString *deal= [NSString stringToAttributeString:status.text];
+    
     self.contentLabel.attributedText=deal;
+    
     
     
     

@@ -62,6 +62,7 @@
 + (instancetype)scale :(NSString *)imgName and:(NSURL *)imgUrl
 {
     UIImageView * showImgView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    showImgView.backgroundColor=[UIColor colorWithWhite:0.0 alpha:0.5];
     showImgView.contentMode=UIViewContentModeScaleAspectFit;
     [showImgView setMultipleTouchEnabled:YES];
     [showImgView setUserInteractionEnabled:YES];
