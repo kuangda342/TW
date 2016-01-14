@@ -81,6 +81,7 @@
 		183F2B2A1C31265B00D3F6D0 /* UIView+SizeExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F2B291C31265B00D3F6D0 /* UIView+SizeExtension.m */; };
 		183F2B2D1C31486300D3F6D0 /* ZYComposeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F2B2C1C31486300D3F6D0 /* ZYComposeController.m */; };
 		183F2B301C31495300D3F6D0 /* UIBarButtonItem+BarBtnExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F2B2F1C31495300D3F6D0 /* UIBarButtonItem+BarBtnExtension.m */; };
+		184311C41C479295006ADA84 /* UIImageView+scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 184311C31C479295006ADA84 /* UIImageView+scale.m */; };
 		1843E5691C3C08B400982F61 /* ZYEmotionAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843E5681C3C08B400982F61 /* ZYEmotionAttachment.m */; };
 		1843E56C1C3C09CE00982F61 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843E56B1C3C09CE00982F61 /* NSString+Emoji.m */; };
 		184615101C338680004BF1C9 /* ZYStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846150F1C338680004BF1C9 /* ZYStatus.m */; };
@@ -286,6 +287,8 @@
 		183F2B2C1C31486300D3F6D0 /* ZYComposeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYComposeController.m; sourceTree = "<group>"; };
 		183F2B2E1C31495300D3F6D0 /* UIBarButtonItem+BarBtnExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+BarBtnExtension.h"; sourceTree = "<group>"; };
 		183F2B2F1C31495300D3F6D0 /* UIBarButtonItem+BarBtnExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+BarBtnExtension.m"; sourceTree = "<group>"; };
+		184311C21C479294006ADA84 /* UIImageView+scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+scale.h"; sourceTree = "<group>"; };
+		184311C31C479295006ADA84 /* UIImageView+scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+scale.m"; sourceTree = "<group>"; };
 		1843E5671C3C08B400982F61 /* ZYEmotionAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYEmotionAttachment.h; sourceTree = "<group>"; };
 		1843E5681C3C08B400982F61 /* ZYEmotionAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYEmotionAttachment.m; sourceTree = "<group>"; };
 		1843E56A1C3C09CE00982F61 /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
@@ -670,6 +673,8 @@
 				18C90BD41C34F6F0000D3236 /* MJRefresh */,
 				183F2B1F1C311C0300D3F6D0 /* ZYHomeController.h */,
 				183F2B201C311C0300D3F6D0 /* ZYHomeController.m */,
+				184311C21C479294006ADA84 /* UIImageView+scale.h */,
+				184311C31C479295006ADA84 /* UIImageView+scale.m */,
 				181B07441C31717D007D92DD /* ZYTittlebtn.h */,
 				181B07451C31717D007D92DD /* ZYTittlebtn.m */,
 				181B07471C318093007D92DD /* ZYDropDownMenu.h */,
@@ -1117,6 +1122,7 @@
 				18234AD91C32730D00968404 /* MKAnnotationView+WebCache.m in Sources */,
 				18C90BE61C34F6F0000D3236 /* MJRefreshBaseView.m in Sources */,
 				18A641A91C33FE75002EB94D /* ZYStatusPhoto.m in Sources */,
+				184311C41C479295006ADA84 /* UIImageView+scale.m in Sources */,
 				18234AB51C32730400968404 /* NSObject+MJKeyValue.m in Sources */,
 				183951AA1C34E0BA005A07FB /* ZYIcon.m in Sources */,
 				18234A931C3272E700968404 /* AFURLSessionManager.m in Sources */,

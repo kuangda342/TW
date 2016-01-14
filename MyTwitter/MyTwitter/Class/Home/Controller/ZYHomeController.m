@@ -37,10 +37,18 @@
     return _imageView;
 
 }
-- (void)addPinch
+- (void)addGesture
 {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(Tap:)];
+    tap.numberOfTouchesRequired=1;
+    tap.numberOfTapsRequired=1;
     
+    // 设置代理的原因：想要同时支持多个手势
+    tap.delegate = self;
+    [self.scrollView addGestureRecognizer:tap];
+
     UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
+    [pinch requireGestureRecognizerToFail:tap];
     // 设置代理的原因：想要同时支持多个手势
     pinch.delegate = self;
     [self.scrollView addGestureRecognizer:pinch];
@@ -50,27 +58,17 @@
 - (void)pinch:(UIPinchGestureRecognizer *)pinch
 {
     
-    NSLog(@"---4444-");
+    NSLog(@"---pinch-");
     self.imageView.transform = CGAffineTransformScale(self.imageView.transform, pinch.scale, pinch.scale);
-    self.imageView.center=self.view.center;
+    
     
     // 复位
     pinch.scale = 1;
 }
-- (void)addTap
-{
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(Tap:)];
-    // 设置代理的原因：想要同时支持多个手势
-    tap.delegate = self;
-    [self.scrollView addGestureRecognizer:tap];
-    
-}
-
 - (void)Tap:(UITapGestureRecognizer *)tap
 {
     
-    NSLog(@"----");
+    NSLog(@"--tap--");
     [self.scrollView removeFromSuperview];
 //    [self bigImage];
 }
