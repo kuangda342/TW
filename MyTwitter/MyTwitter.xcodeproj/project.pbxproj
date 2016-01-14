@@ -81,13 +81,13 @@
 		183F2B2A1C31265B00D3F6D0 /* UIView+SizeExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F2B291C31265B00D3F6D0 /* UIView+SizeExtension.m */; };
 		183F2B2D1C31486300D3F6D0 /* ZYComposeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F2B2C1C31486300D3F6D0 /* ZYComposeController.m */; };
 		183F2B301C31495300D3F6D0 /* UIBarButtonItem+BarBtnExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F2B2F1C31495300D3F6D0 /* UIBarButtonItem+BarBtnExtension.m */; };
-		184311C41C479295006ADA84 /* UIImageView+scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 184311C31C479295006ADA84 /* UIImageView+scale.m */; };
 		1843E5691C3C08B400982F61 /* ZYEmotionAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843E5681C3C08B400982F61 /* ZYEmotionAttachment.m */; };
 		1843E56C1C3C09CE00982F61 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843E56B1C3C09CE00982F61 /* NSString+Emoji.m */; };
 		184615101C338680004BF1C9 /* ZYStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846150F1C338680004BF1C9 /* ZYStatus.m */; };
 		184615131C3386AD004BF1C9 /* ZYStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 184615121C3386AD004BF1C9 /* ZYStatusFrame.m */; };
 		184615191C338964004BF1C9 /* ZYTwCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184615181C338964004BF1C9 /* ZYTwCellTableViewCell.m */; };
 		1846151C1C338994004BF1C9 /* ZYUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1846151B1C338994004BF1C9 /* ZYUserInfo.m */; };
+		184775BE1C47C31200877F2F /* UIImageView+scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 184775BD1C47C31200877F2F /* UIImageView+scale.m */; };
 		1854C85D1C32733A00FC61E4 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854C8591C32733A00FC61E4 /* MBProgressHUD+MJ.m */; };
 		1854C85E1C32733A00FC61E4 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1854C85A1C32733A00FC61E4 /* MBProgressHUD.bundle */; };
 		1854C85F1C32733A00FC61E4 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854C85C1C32733A00FC61E4 /* MBProgressHUD.m */; };
@@ -287,8 +287,6 @@
 		183F2B2C1C31486300D3F6D0 /* ZYComposeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYComposeController.m; sourceTree = "<group>"; };
 		183F2B2E1C31495300D3F6D0 /* UIBarButtonItem+BarBtnExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+BarBtnExtension.h"; sourceTree = "<group>"; };
 		183F2B2F1C31495300D3F6D0 /* UIBarButtonItem+BarBtnExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+BarBtnExtension.m"; sourceTree = "<group>"; };
-		184311C21C479294006ADA84 /* UIImageView+scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+scale.h"; sourceTree = "<group>"; };
-		184311C31C479295006ADA84 /* UIImageView+scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+scale.m"; sourceTree = "<group>"; };
 		1843E5671C3C08B400982F61 /* ZYEmotionAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYEmotionAttachment.h; sourceTree = "<group>"; };
 		1843E5681C3C08B400982F61 /* ZYEmotionAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYEmotionAttachment.m; sourceTree = "<group>"; };
 		1843E56A1C3C09CE00982F61 /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
@@ -301,6 +299,8 @@
 		184615181C338964004BF1C9 /* ZYTwCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYTwCellTableViewCell.m; sourceTree = "<group>"; };
 		1846151A1C338994004BF1C9 /* ZYUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYUserInfo.h; sourceTree = "<group>"; };
 		1846151B1C338994004BF1C9 /* ZYUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYUserInfo.m; sourceTree = "<group>"; };
+		184775BC1C47C31200877F2F /* UIImageView+scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+scale.h"; sourceTree = "<group>"; };
+		184775BD1C47C31200877F2F /* UIImageView+scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+scale.m"; sourceTree = "<group>"; };
 		1854C8581C32733A00FC61E4 /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		1854C8591C32733A00FC61E4 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
 		1854C85A1C32733A00FC61E4 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
@@ -673,8 +673,8 @@
 				18C90BD41C34F6F0000D3236 /* MJRefresh */,
 				183F2B1F1C311C0300D3F6D0 /* ZYHomeController.h */,
 				183F2B201C311C0300D3F6D0 /* ZYHomeController.m */,
-				184311C21C479294006ADA84 /* UIImageView+scale.h */,
-				184311C31C479295006ADA84 /* UIImageView+scale.m */,
+				184775BC1C47C31200877F2F /* UIImageView+scale.h */,
+				184775BD1C47C31200877F2F /* UIImageView+scale.m */,
 				181B07441C31717D007D92DD /* ZYTittlebtn.h */,
 				181B07451C31717D007D92DD /* ZYTittlebtn.m */,
 				181B07471C318093007D92DD /* ZYDropDownMenu.h */,
@@ -1122,7 +1122,7 @@
 				18234AD91C32730D00968404 /* MKAnnotationView+WebCache.m in Sources */,
 				18C90BE61C34F6F0000D3236 /* MJRefreshBaseView.m in Sources */,
 				18A641A91C33FE75002EB94D /* ZYStatusPhoto.m in Sources */,
-				184311C41C479295006ADA84 /* UIImageView+scale.m in Sources */,
+				184775BE1C47C31200877F2F /* UIImageView+scale.m in Sources */,
 				18234AB51C32730400968404 /* NSObject+MJKeyValue.m in Sources */,
 				183951AA1C34E0BA005A07FB /* ZYIcon.m in Sources */,
 				18234A931C3272E700968404 /* AFURLSessionManager.m in Sources */,

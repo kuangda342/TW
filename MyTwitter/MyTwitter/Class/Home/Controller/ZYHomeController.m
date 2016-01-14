@@ -17,86 +17,87 @@
 #import "ZYPhoto.h"
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"
+#import "UIImageView+scale.h"
 @interface ZYHomeController ()<ZYDropDownMenuDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSMutableArray *wbMdls;
-@property(nonatomic,weak)UIButton * iconButton;
+//@property(nonatomic,weak)UIButton * iconButton;
 @property(nonatomic,strong)UIButton *cover;
 @property(nonatomic,strong)NSURL * url;
-@property(nonatomic,weak)UIScrollView *scrollView;
+//@property(nonatomic,weak)UIScrollView *scrollView;
 @property(nonatomic,weak)UIImageView *imageView;
 @end
 
 @implementation ZYHomeController
--(UIImageView *)imageView{
-    if (_imageView==nil) {
-        UIImageView *img=[[UIImageView alloc]initWithFrame:self.navigationController.view.bounds];
-        [self.scrollView addSubview:img];
-        img.contentMode=UIViewContentModeScaleAspectFit;
-        _imageView=img;
-    }
-    return _imageView;
+//-(UIImageView *)imageView{
+//    if (_imageView==nil) {
+//        UIImageView *img=[[UIImageView alloc]initWithFrame:self.navigationController.view.bounds];
+//        [self.scrollView addSubview:img];
+//        img.contentMode=UIViewContentModeScaleAspectFit;
+//        _imageView=img;
+//    }
+//    return _imageView;
+//
+//}
+//- (void)addGesture
+//{
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(Tap:)];
+//    tap.numberOfTouchesRequired=1;
+//    tap.numberOfTapsRequired=1;
+//    
+//    // 设置代理的原因：想要同时支持多个手势
+//    tap.delegate = self;
+//    [self.scrollView addGestureRecognizer:tap];
+//
+//    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
+//    [pinch requireGestureRecognizerToFail:tap];
+//    // 设置代理的原因：想要同时支持多个手势
+//    pinch.delegate = self;
+//    [self.scrollView addGestureRecognizer:pinch];
+//    
+//}
 
-}
-- (void)addGesture
-{
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(Tap:)];
-    tap.numberOfTouchesRequired=1;
-    tap.numberOfTapsRequired=1;
-    
-    // 设置代理的原因：想要同时支持多个手势
-    tap.delegate = self;
-    [self.scrollView addGestureRecognizer:tap];
-
-    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
-    [pinch requireGestureRecognizerToFail:tap];
-    // 设置代理的原因：想要同时支持多个手势
-    pinch.delegate = self;
-    [self.scrollView addGestureRecognizer:pinch];
-    
-}
-
-- (void)pinch:(UIPinchGestureRecognizer *)pinch
-{
-    
-    NSLog(@"---pinch-");
-    self.imageView.transform = CGAffineTransformScale(self.imageView.transform, pinch.scale, pinch.scale);
-    
-    
-    // 复位
-    pinch.scale = 1;
-}
-- (void)Tap:(UITapGestureRecognizer *)tap
-{
-    
-    NSLog(@"--tap--");
-    [self.scrollView removeFromSuperview];
-//    [self bigImage];
-}
-
-
+//- (void)pinch:(UIPinchGestureRecognizer *)pinch
+//{
+//    
+//    NSLog(@"---pinch-");
+//    self.imageView.transform = CGAffineTransformScale(self.imageView.transform, pinch.scale, pinch.scale);
+//    
+//    
+//    // 复位
+//    pinch.scale = 1;
+//}
+//- (void)Tap:(UITapGestureRecognizer *)tap
+//{
+//    
+//    NSLog(@"--tap--");
+//    [self.scrollView removeFromSuperview];
+////    [self bigImage];
+//}
 
 
 
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return self.imageView;
-}
 
--(UIScrollView *)scrollView{
-    if (_scrollView==nil) {
-        UIScrollView *vs=[[UIScrollView alloc]initWithFrame:self.navigationController.view.bounds];
-        [self.navigationController.view addSubview:vs];
-        _scrollView=vs;
-        _scrollView.contentSize=self.iconButton.size;
-        _scrollView.maximumZoomScale=5.0;
-        _scrollView.minimumZoomScale=0.2;
-        _scrollView.bounces=NO;
-        _scrollView.showsHorizontalScrollIndicator=NO;
-        _scrollView.showsVerticalScrollIndicator=NO;
-    }
-    return _scrollView;
-}
+
+//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+//{
+//    return self.imageView;
+//}
+//
+//-(UIScrollView *)scrollView{
+//    if (_scrollView==nil) {
+//        UIScrollView *vs=[[UIScrollView alloc]initWithFrame:self.navigationController.view.bounds];
+//        [self.navigationController.view addSubview:vs];
+//        _scrollView=vs;
+//        _scrollView.contentSize=self.iconButton.size;
+//        _scrollView.maximumZoomScale=5.0;
+//        _scrollView.minimumZoomScale=0.2;
+//        _scrollView.bounces=NO;
+//        _scrollView.showsHorizontalScrollIndicator=NO;
+//        _scrollView.showsVerticalScrollIndicator=NO;
+//    }
+//    return _scrollView;
+//}
 //-(UIButton *)cover{
 //    if (_cover==nil) {
 //        _cover=[[UIButton alloc]initWithFrame:self.navigationController.view.bounds];
@@ -118,11 +119,11 @@
 //    }
 //    return _iconButton;
 //}
-- (void)bigImage{
+//- (void)bigImage{
 //    if (self.cover.alpha==0.0) {
-    
-        [self.navigationController.view bringSubviewToFront:self.scrollView];
-        self.scrollView.frame=self.navigationController.view.bounds;
+//    
+//        [self.navigationController.view bringSubviewToFront:self.scrollView];
+//        self.scrollView.frame=self.navigationController.view.bounds;
 //            self.iconButton.frame=self.navigationController.view.bounds;
 //            self.cover.alpha=1.0;
 //    }else{
@@ -130,7 +131,7 @@
 //            [self.iconButton removeFromSuperview];
 //            self.cover.alpha=0.0;
 //    }
-}
+//}
 
 
 
@@ -153,8 +154,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self addPinch];
-//    [self addTap];
     self.tableView.backgroundColor=[UIColor colorWithRed:211/255.0 green:211/255.0 blue:211/255.0 alpha:1];
     [self setupNav];
     [self setupUserInfo];
@@ -170,11 +169,14 @@
     
 }
 -(void)pictureDidSelect:(NSNotification *)notification{
-    self.scrollView.delegate=self;
+//    self.scrollView.delegate=self;
     self.url=notification.userInfo[@"pictureUrl"];
 //    [self.iconButton sd_setImageWithURL:self.url forState:UIControlStateNormal];
-    [self.imageView sd_setImageWithURL:self.url];
-    [self bigImage];
+//    [self.imageView sd_setImageWithURL:self.url];
+    self.imageView=[UIImageView scale:nil and:self.url];
+    [self.navigationController.view addSubview:self.imageView];
+//    NSLog(@"%@",self.url);
+//    [self bigImage];
     
 }
 -(void)dealloc{
