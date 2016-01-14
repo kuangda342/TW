@@ -1,6 +1,7 @@
 #import "UIImageView+scale.h"
 #import "UIImageView+WebCache.h"
 @interface UIImageView ()<UIGestureRecognizerDelegate>
+
 @end
 @implementation UIImageView (scale)
 // 添加所有的手势
@@ -50,9 +51,8 @@
 - (void) panView:(UIPanGestureRecognizer *)panGestureRecognizer
 {
     UIView *view = panGestureRecognizer.view;
-//    if (view.bounds.size.width) {
-//        <#statements#>
-//    }
+    UIImageView *img=(UIImageView *)view;
+    if (img.frame.size.width==[UIScreen mainScreen].bounds.size.width||img.frame.size.width<[UIScreen mainScreen].bounds.size.width)return;
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [panGestureRecognizer translationInView:view.superview];
         [view setCenter:(CGPoint){view.center.x + translation.x, view.center.y + translation.y}];
