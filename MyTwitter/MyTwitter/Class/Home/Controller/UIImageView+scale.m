@@ -1,5 +1,6 @@
 #import "UIImageView+scale.h"
 #import "UIImageView+WebCache.h"
+
 @interface UIImageView ()<UIGestureRecognizerDelegate>
 
 @end
@@ -56,6 +57,28 @@
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [panGestureRecognizer translationInView:view.superview];
         [view setCenter:(CGPoint){view.center.x + translation.x, view.center.y + translation.y}];
+        
+        
+        if (view.center.x<0.5*[UIScreen mainScreen].bounds.size.width-0.5*(img.frame.size.width-[UIScreen mainScreen].bounds.size.width))
+        {
+        [view setCenter:(CGPoint){0.5*[UIScreen mainScreen].bounds.size.width-0.5*(img.frame.size.width-[UIScreen mainScreen].bounds.size.width), view.center.y }];
+        }
+        if (view.center.x>0.5*[UIScreen mainScreen].bounds.size.width+0.5*(img.frame.size.width-[UIScreen mainScreen].bounds.size.width))
+        {
+            [view setCenter:(CGPoint){0.5*[UIScreen mainScreen].bounds.size.width+0.5*(img.frame.size.width-[UIScreen mainScreen].bounds.size.width), view.center.y }];
+        }
+        if (view.center.y<0.5*[UIScreen mainScreen].bounds.size.height-0.5*(img.frame.size.height-[UIScreen mainScreen].bounds.size.height))
+        {
+            [view setCenter:(CGPoint){view.center.x, 0.5*[UIScreen mainScreen].bounds.size.height-0.5*(img.frame.size.height-[UIScreen mainScreen].bounds.size.height) }];
+        }
+        if (view.center.y>0.5*[UIScreen mainScreen].bounds.size.height+0.5*(img.frame.size.height-[UIScreen mainScreen].bounds.size.height))
+        {
+            [view setCenter:(CGPoint){view.center.x, 0.5*[UIScreen mainScreen].bounds.size.height+0.5*(img.frame.size.height-[UIScreen mainScreen].bounds.size.height) }];
+        }
+        
+        
+        
+        
         [panGestureRecognizer setTranslation:CGPointZero inView:view.superview];
     }
 }

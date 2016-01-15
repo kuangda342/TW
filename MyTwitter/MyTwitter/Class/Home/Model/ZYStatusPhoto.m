@@ -23,7 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // 内容模式
-        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         // 超出边框的内容都剪掉
 //        self.clipsToBounds = YES;
         
