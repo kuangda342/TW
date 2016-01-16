@@ -235,17 +235,6 @@
     NSAttributedString *deal= [NSString stringToAttributeString:status.text];
     
     self.contentLabel.attributedText=deal;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     self.contentLabel.frame = statusFrame.contentLabelF;
     
     /** 被转发的微博 */
@@ -261,6 +250,7 @@
         NSString *retweetContent = [NSString stringWithFormat:@"@%@ : %@", retweeted_status_user.name, retweeted_status.text];
         NSAttributedString *retwt=[NSString stringToAttributeString:retweetContent];
         self.retweetContentLabel.attributedText = retwt;
+        
         self.retweetContentLabel.frame = statusFrame.retweetContentLabelF;
         
         /** 被转发的微博配图 */

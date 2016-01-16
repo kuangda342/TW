@@ -23,9 +23,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         // 内容模式
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.contentMode = UIViewContentModeScaleAspectFit;
         // 超出边框的内容都剪掉
-//        self.clipsToBounds = YES;
+        self.clipsToBounds = YES;
         
     }
     return self;
@@ -36,7 +36,8 @@
     // 设置图片
     NSString *thumbnail=photo.thumbnail_pic;
     NSURL *url1=[NSURL URLWithString:thumbnail];
-    [self sd_setBackgroundImageWithURL:url1 forState:UIControlStateNormal];
+//    [self sd_setBackgroundImageWithURL:url1 forState:UIControlStateNormal];
+    [self sd_setImageWithURL:url1 forState:UIControlStateNormal];
     [self addTarget:self action:@selector(pictureclick:) forControlEvents:UIControlEventTouchUpInside];
     
     // 显示\隐藏gif控件
@@ -59,8 +60,4 @@
     self.gifView.x = self.width - self.gifView.width;
     self.gifView.y = self.height - self.gifView.height;
 }
-
-
-
-
 @end
