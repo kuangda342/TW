@@ -237,15 +237,23 @@
     /** 正文 */
     NSAttributedString *deal= [NSString stringToAttributeString:status.text];
     NSMutableAttributedString *chuli=[[NSMutableAttributedString alloc]init];
+    
     [deal enumerateAttributesInRange:NSMakeRange(0, deal.length) options:0 usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
+        NSAttributedStringEnumerationReverse
         // 如果是图片表情
+        NSLog(@"%@",NSStringFromRange(range));
         ZYEmotionAttachment *attch = attrs[@"NSAttachment"];
+//        NSLog(@"shitup");
         if (attch) { // 图片
-//            NSLog(@"shitup");
+            NSLog(@"%@",attch);
 //            NSTextAttachment *textat=[[NSTextAttachment alloc]init];
 //            textat.image=attch.image;
+            CGFloat attchWH = 14;
+            attch.bounds = CGRectMake(0, -4, attchWH, attchWH);
+
             NSAttributedString *temp=[NSAttributedString attributedStringWithAttachment:attch];
             [chuli appendAttributedString:temp];
+            NSLog(@"%@",chuli);
         } else { // emoji、普通文本
             // 获得这个范围内的文字
             
