@@ -97,6 +97,8 @@
 		1869CAE11C3BFEF7008E1C5F /* ZYTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1869CAE01C3BFEF7008E1C5F /* ZYTextView.m */; };
 		1869CAE41C3C04F9008E1C5F /* ZYEmotionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1869CAE31C3C04F9008E1C5F /* ZYEmotionTextView.m */; };
 		1869CAE71C3C064E008E1C5F /* ZYEmotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1869CAE61C3C064E008E1C5F /* ZYEmotion.m */; };
+		188E367C1C4BA70F00481282 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E36791C4BA70F00481282 /* TTTAttributedLabel.m */; };
+		188E367D1C4BA70F00481282 /* TTTAttributedLabel+detectHyperLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E367B1C4BA70F00481282 /* TTTAttributedLabel+detectHyperLink.m */; };
 		18A641A31C33D32E002EB94D /* ZYPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A641A21C33D32E002EB94D /* ZYPhoto.m */; };
 		18A641A61C33F853002EB94D /* NSDate+JudgeDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A641A51C33F853002EB94D /* NSDate+JudgeDate.m */; };
 		18A641A91C33FE75002EB94D /* ZYStatusPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A641A81C33FE75002EB94D /* ZYStatusPhoto.m */; };
@@ -318,6 +320,10 @@
 		1869CAE31C3C04F9008E1C5F /* ZYEmotionTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYEmotionTextView.m; sourceTree = "<group>"; };
 		1869CAE51C3C064E008E1C5F /* ZYEmotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYEmotion.h; sourceTree = "<group>"; };
 		1869CAE61C3C064E008E1C5F /* ZYEmotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYEmotion.m; sourceTree = "<group>"; };
+		188E36781C4BA70F00481282 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		188E36791C4BA70F00481282 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		188E367A1C4BA70F00481282 /* TTTAttributedLabel+detectHyperLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTTAttributedLabel+detectHyperLink.h"; sourceTree = "<group>"; };
+		188E367B1C4BA70F00481282 /* TTTAttributedLabel+detectHyperLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTTAttributedLabel+detectHyperLink.m"; sourceTree = "<group>"; };
 		18A641A11C33D32E002EB94D /* ZYPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYPhoto.h; sourceTree = "<group>"; };
 		18A641A21C33D32E002EB94D /* ZYPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYPhoto.m; sourceTree = "<group>"; };
 		18A641A41C33F853002EB94D /* NSDate+JudgeDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+JudgeDate.h"; sourceTree = "<group>"; };
@@ -694,6 +700,10 @@
 				184615121C3386AD004BF1C9 /* ZYStatusFrame.m */,
 				184615171C338964004BF1C9 /* ZYTwCellTableViewCell.h */,
 				184615181C338964004BF1C9 /* ZYTwCellTableViewCell.m */,
+				188E36781C4BA70F00481282 /* TTTAttributedLabel.h */,
+				188E36791C4BA70F00481282 /* TTTAttributedLabel.m */,
+				188E367A1C4BA70F00481282 /* TTTAttributedLabel+detectHyperLink.h */,
+				188E367B1C4BA70F00481282 /* TTTAttributedLabel+detectHyperLink.m */,
 				18CF8B0F1C40F73900511E5B /* NSString+test.h */,
 				18CF8B101C40F73900511E5B /* NSString+test.m */,
 				1846151A1C338994004BF1C9 /* ZYUserInfo.h */,
@@ -1092,6 +1102,7 @@
 				183F2B1E1C311BE700D3F6D0 /* ZYDiscoverController.m in Sources */,
 				1839AFDD1C32727C003EFBE3 /* ZYNetTool.m in Sources */,
 				182BCFCE1C3D4A720005B116 /* ZYEmotionTabBar.m in Sources */,
+				188E367D1C4BA70F00481282 /* TTTAttributedLabel+detectHyperLink.m in Sources */,
 				1854C85D1C32733A00FC61E4 /* MBProgressHUD+MJ.m in Sources */,
 				18234AE81C32730D00968404 /* UIView+WebCacheOperation.m in Sources */,
 				18234AB21C32730400968404 /* MJType.m in Sources */,
@@ -1136,6 +1147,7 @@
 				1854C8621C327AE600FC61E4 /* ZYNewFeatureController.m in Sources */,
 				18C90BE71C34F6F0000D3236 /* MJRefreshConst.m in Sources */,
 				183F2B211C311C0300D3F6D0 /* ZYHomeController.m in Sources */,
+				188E367C1C4BA70F00481282 /* TTTAttributedLabel.m in Sources */,
 				183F2B1B1C311BB400D3F6D0 /* ZYMessageController.m in Sources */,
 				18234AE21C32730D00968404 /* UIButton+WebCache.m in Sources */,
 				18C90BEC1C34F6F0000D3236 /* UIView+MJExtension.m in Sources */,

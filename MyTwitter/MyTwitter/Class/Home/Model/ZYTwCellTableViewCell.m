@@ -11,7 +11,9 @@
 #import "ZYEmotion.h"
 #import "MJExtension.h"
 #import "NSString+test.h"
-#import <UIKit/UIDataDetectors.h>
+#import "TTTAttributedLabel+detectHyperLink.h"
+#import "TTTAttributedLabel.h"
+#import "ZYEmotionAttachment.h"
 @interface ZYTwCellTableViewCell()
 /* 原创微博 */
 /** 原创微博整体 */
@@ -29,7 +31,7 @@
 /** 来源 */
 @property (nonatomic, weak) UILabel *sourceLabel;
 /** 正文 */
-@property (nonatomic, weak) UILabel *contentLabel;
+@property (nonatomic, weak) TTTAttributedLabel *contentLabel;
 
 /* 转发微博 */
 /** 转发微博整体 */
@@ -168,9 +170,10 @@
     self.sourceLabel = sourceLabel;
     
     /** 正文 */
-    UILabel *contentLabel = [[UILabel alloc] init];
-    contentLabel.font = [UIFont systemFontOfSize:14];
-    contentLabel.numberOfLines = 0;
+    TTTAttributedLabel *contentLabel = [TTTAttributedLabel stringToAttributeString:@"操蛋"];
+//    contentLabel.font = [UIFont systemFontOfSize:14];
+//    contentLabel.numberOfLines = 0;
+#warning cichuxiugai
     [originalView addSubview:contentLabel];
     self.contentLabel = contentLabel;
 }
@@ -233,9 +236,39 @@
     
     /** 正文 */
     NSAttributedString *deal= [NSString stringToAttributeString:status.text];
+    NSMutableAttributedString *chuli=[[NSMutableAttributedString alloc]init];
+    [deal enumerateAttributesInRange:NSMakeRange(0, deal.length) options:0 usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
+        // 如果是图片表情
+        ZYEmotionAttachment *attch = attrs[@"NSAttachment"];
+        if (attch) { // 图片
+//            NSLog(@"shitup");
+//            NSTextAttachment *textat=[[NSTextAttachment alloc]init];
+//            textat.image=attch.image;
+            NSAttributedString *temp=[NSAttributedString attributedStringWithAttachment:attch];
+            [chuli appendAttributedString:temp];
+        } else { // emoji、普通文本
+            // 获得这个范围内的文字
+            
+            NSAttributedString *str = [deal attributedSubstringFromRange:range];
+            NSLog(@"%@",str);
+            NSString * caodan=[str string];
+            
+            [chuli appendAttributedString:[TTTAttributedLabel stringToAttributeString:caodan].attributedText];
+        }
+    }];
+    CGFloat contentX = 10;
+    CGFloat contentY = MAX(CGRectGetMaxY(self.iconView.frame), CGRectGetMaxY(self.timeLabel.frame)) + 10;
+    CGFloat maxW = [UIScreen mainScreen].bounds.size.width - 2 * contentX;
+    CGSize contentSize = [TTTAttributedLabel sizeThatFitsAttributedString:chuli withConstraints:CGSizeMake(maxW, 0) limitedToNumberOfLines:0];
     
-    self.contentLabel.attributedText=deal;
-    self.contentLabel.frame = statusFrame.contentLabelF;
+    self.contentLabel.frame = CGRectMake(contentX, contentY, contentSize.width, contentSize.height);
+    self.contentLabel.attributedText=chuli;
+    
+    
+    
+    
+    
+    
     
     /** 被转发的微博 */
     if (status.retweeted_status) {
