@@ -14,7 +14,7 @@
 #import "TTTAttributedLabel+detectHyperLink.h"
 #import "TTTAttributedLabel.h"
 #import "ZYEmotionAttachment.h"
-@interface ZYTwCellTableViewCell()
+@interface ZYTwCellTableViewCell()<TTTAttributedLabelDelegate>
 /* 原创微博 */
 /** 原创微博整体 */
 @property (nonatomic, weak) UIView *originalView;
@@ -47,9 +47,15 @@
 @end
 
 @implementation ZYTwCellTableViewCell
+-(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url{
+
+    NSLog(@"----");
+
+}
 
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {
+    
     static NSString *ID = @"status";
     ZYTwCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
@@ -64,8 +70,10 @@
  */
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
+    
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.contentLabel.delegate=self;
         self.backgroundColor = [UIColor clearColor];
         // 点击cell的时候不要变色
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -83,10 +91,11 @@
         
         // 初始化转发微博
         [self setupRetweet];
-        
+//        self.contentLabel.delegate=self;
         // 初始化工具条
         [self setupToolbar];
     }
+    
     return self;
 }
 /**
@@ -174,6 +183,9 @@
 //    contentLabel.font = [UIFont systemFontOfSize:14];
 //    contentLabel.numberOfLines = 0;
 #warning cichuxiugai
+//    UILabel *contentLabel=[[UILabel alloc]init];
+//    contentLabel.font = [UIFont systemFontOfSize:14];
+//    contentLabel.numberOfLines = 0;
     [originalView addSubview:contentLabel];
     self.contentLabel = contentLabel;
 }
@@ -236,41 +248,41 @@
     
     /** 正文 */
     NSAttributedString *deal= [NSString stringToAttributeString:status.text];
-    NSMutableAttributedString *chuli=[[NSMutableAttributedString alloc]init];
     
+    NSMutableAttributedString *chuli=[[NSMutableAttributedString alloc]init];
+#if 1
     [deal enumerateAttributesInRange:NSMakeRange(0, deal.length) options:0 usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
-        NSAttributedStringEnumerationReverse
         // 如果是图片表情
-        NSLog(@"%@",NSStringFromRange(range));
-        ZYEmotionAttachment *attch = attrs[@"NSAttachment"];
-//        NSLog(@"shitup");
+        NSTextAttachment *attch = attrs[@"NSAttachment"];
+        NSAttributedString *temp=[deal attributedSubstringFromRange:range];
         if (attch) { // 图片
-            NSLog(@"%@",attch);
-//            NSTextAttachment *textat=[[NSTextAttachment alloc]init];
-//            textat.image=attch.image;
-            CGFloat attchWH = 14;
-            attch.bounds = CGRectMake(0, -4, attchWH, attchWH);
-
-            NSAttributedString *temp=[NSAttributedString attributedStringWithAttachment:attch];
             [chuli appendAttributedString:temp];
-            NSLog(@"%@",chuli);
+            
         } else { // emoji、普通文本
-            // 获得这个范围内的文字
-            
-            NSAttributedString *str = [deal attributedSubstringFromRange:range];
-            NSLog(@"%@",str);
-            NSString * caodan=[str string];
-            
-            [chuli appendAttributedString:[TTTAttributedLabel stringToAttributeString:caodan].attributedText];
+            [chuli appendAttributedString:[TTTAttributedLabel stringToAttributeString:[temp string]].attributedText];
         }
     }];
+#endif
+//    
+//    
+//    NSTextAttachment *attch12 =[[NSTextAttachment alloc]init];
+//    attch12.image=[UIImage imageNamed:@"movie_xr"];
+//    CGFloat attchWH = 10;
+//    attch12.bounds = CGRectMake(0, 0, attchWH, attchWH);
+//
+//    NSAttributedString *temp12=[NSAttributedString attributedStringWithAttachment:attch12];
+//    [chuli appendAttributedString:temp12];
+//    
+//    
+    
     CGFloat contentX = 10;
     CGFloat contentY = MAX(CGRectGetMaxY(self.iconView.frame), CGRectGetMaxY(self.timeLabel.frame)) + 10;
     CGFloat maxW = [UIScreen mainScreen].bounds.size.width - 2 * contentX;
+//    CGSize contentSize=[status.text sizeWithFont:[UIFont systemFontOfSize:14]];
     CGSize contentSize = [TTTAttributedLabel sizeThatFitsAttributedString:chuli withConstraints:CGSizeMake(maxW, 0) limitedToNumberOfLines:0];
     
     self.contentLabel.frame = CGRectMake(contentX, contentY, contentSize.width, contentSize.height);
-    self.contentLabel.attributedText=chuli;
+    [self.contentLabel setText:chuli];
     
     
     
