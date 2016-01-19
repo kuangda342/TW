@@ -10,7 +10,7 @@
 #define ZYStatusCellContentFont [UIFont systemFontOfSize:14]
 
 // 被转发微博的正文字体
-#define ZYStatusCellRetweetContentFont [UIFont systemFontOfSize:13]
+#define ZYStatusCellRetweetContentFont [UIFont systemFontOfSize:14]
 
 // cell之间的间距
 #define ZYStatusCellMargin 15

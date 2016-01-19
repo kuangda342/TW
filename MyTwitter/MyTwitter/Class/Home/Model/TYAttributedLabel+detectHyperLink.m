@@ -1,21 +1,17 @@
-#import "TTTAttributedLabel+detectHyperLink.h"
-@implementation TTTAttributedLabel (detectHyperLink)
+#import "TYAttributedLabel+detectHyperLink.h"
+#import "TYAttributedLabel.h"
+@implementation TYAttributedLabel (detectHyperLink)
 +(instancetype)stringToAttributeString:(NSString *)text{
-    TTTAttributedLabel *bubbleText = [[TTTAttributedLabel alloc]
-                                      initWithFrame:CGRectMake(27.0f, 20.0f, 27.f,20.f)];
-    
-    bubbleText.backgroundColor = [UIColor clearColor];
-    
+    TYAttributedLabel *bubbleText = [[TYAttributedLabel alloc]init];
+    bubbleText.backgroundColor = [UIColor whiteColor];
+    bubbleText.layer.borderColor=[UIColor clearColor].CGColor;
     bubbleText.font = [UIFont systemFontOfSize:13];
     bubbleText.numberOfLines = 0;
     bubbleText.lineBreakMode = NSLineBreakByWordWrapping;
-    bubbleText.text = text;
-    
-    bubbleText.linkAttributes = @{(NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:YES],
-                                  (NSString*)kCTForegroundColorAttributeName : (id)[[UIColor blueColor] CGColor]};
-    
-    bubbleText.highlightedTextColor = [UIColor whiteColor];
-    bubbleText.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
+    bubbleText.text=text;
+    bubbleText.characterSpacing=0;
+
+    bubbleText.highlightedLinkColor=[UIColor orangeColor];
     // 提取出文本中的超链接
     NSError *error;
     NSString *regulaStr = @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)";
@@ -32,11 +28,11 @@
         [attribute addAttribute:(NSString*)kCTForegroundColorAttributeName
                           value:(id)[[UIColor blueColor] CGColor]
                           range:match.range];
-        [bubbleText addLinkToURL:[NSURL URLWithString:substringForMatch] withRange:match.range];
-        [bubbleText.delegate attributedLabel:bubbleText didSelectLinkWithURL:[NSURL URLWithString:substringForMatch]];
+        [bubbleText addLinkWithLinkData:substringForMatch linkColor:[UIColor blueColor] underLineStyle:kCTUnderlineStyleSingle range:match.range];
+        TYLinkTextStorage *textrun=[[TYLinkTextStorage alloc]init];
+        textrun.linkData=substringForMatch;
+[bubbleText.delegate attributedLabel:bubbleText textStorageClicked:textrun atPoint:CGPointZero];
     }
     return bubbleText;
-
-
 }
 @end

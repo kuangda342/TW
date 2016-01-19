@@ -11,10 +11,13 @@
 #import "ZYEmotion.h"
 #import "MJExtension.h"
 #import "NSString+test.h"
+#import "TYAttributedLabel+detectHyperLink.h"
+#import "ZYEmotionAttachment.h"
+#import "TYAttributedLabel.h"
 #import "TTTAttributedLabel+detectHyperLink.h"
 #import "TTTAttributedLabel.h"
-#import "ZYEmotionAttachment.h"
-@interface ZYTwCellTableViewCell()<TTTAttributedLabelDelegate>
+#import "MLEmojiLabel.h"
+@interface ZYTwCellTableViewCell()<TYAttributedLabelDelegate,MLEmojiLabelDelegate>
 /* 原创微博 */
 /** 原创微博整体 */
 @property (nonatomic, weak) UIView *originalView;
@@ -31,7 +34,7 @@
 /** 来源 */
 @property (nonatomic, weak) UILabel *sourceLabel;
 /** 正文 */
-@property (nonatomic, weak) TTTAttributedLabel *contentLabel;
+@property (nonatomic, weak)  MLEmojiLabel*contentLabel;
 
 /* 转发微博 */
 /** 转发微博整体 */
@@ -47,12 +50,6 @@
 @end
 
 @implementation ZYTwCellTableViewCell
--(void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url{
-
-    NSLog(@"----");
-
-}
-
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {
     
@@ -179,13 +176,8 @@
     self.sourceLabel = sourceLabel;
     
     /** 正文 */
-    TTTAttributedLabel *contentLabel = [TTTAttributedLabel stringToAttributeString:@"操蛋"];
-//    contentLabel.font = [UIFont systemFontOfSize:14];
-//    contentLabel.numberOfLines = 0;
+    MLEmojiLabel *contentLabel = [[MLEmojiLabel alloc]initWithFrame:CGRectZero];
 #warning cichuxiugai
-//    UILabel *contentLabel=[[UILabel alloc]init];
-//    contentLabel.font = [UIFont systemFontOfSize:14];
-//    contentLabel.numberOfLines = 0;
     [originalView addSubview:contentLabel];
     self.contentLabel = contentLabel;
 }
@@ -248,48 +240,31 @@
     
     /** 正文 */
     NSAttributedString *deal= [NSString stringToAttributeString:status.text];
-    
-    NSMutableAttributedString *chuli=[[NSMutableAttributedString alloc]init];
-#if 1
+//    NSMutableAttributedString *chuli=[[NSMutableAttributedString alloc]init];
+//    self.contentLabel.text=nil;
+    [self.contentLabel setText:[deal string]];
+#if 0
     [deal enumerateAttributesInRange:NSMakeRange(0, deal.length) options:0 usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
         // 如果是图片表情
         NSTextAttachment *attch = attrs[@"NSAttachment"];
         NSAttributedString *temp=[deal attributedSubstringFromRange:range];
         if (attch) { // 图片
-            [chuli appendAttributedString:temp];
+            [self.contentLabel appendImage:attch.image size:CGSizeMake(14, 14)];
+//            [chuli appendAttributedString:temp];
+//            [self.contentLabel appendTextAttributedString:temp];
             
         } else { // emoji、普通文本
+            
             [chuli appendAttributedString:[TTTAttributedLabel stringToAttributeString:[temp string]].attributedText];
+            [self.contentLabel appendTextAttributedString:[TTTAttributedLabel stringToAttributeString:[temp string]].attributedText];
         }
     }];
 #endif
-//    
-//    
-//    NSTextAttachment *attch12 =[[NSTextAttachment alloc]init];
-//    attch12.image=[UIImage imageNamed:@"movie_xr"];
-//    CGFloat attchWH = 10;
-//    attch12.bounds = CGRectMake(0, 0, attchWH, attchWH);
-//
-//    NSAttributedString *temp12=[NSAttributedString attributedStringWithAttachment:attch12];
-//    [chuli appendAttributedString:temp12];
-//    
-//    
-    
     CGFloat contentX = 10;
     CGFloat contentY = MAX(CGRectGetMaxY(self.iconView.frame), CGRectGetMaxY(self.timeLabel.frame)) + 10;
     CGFloat maxW = [UIScreen mainScreen].bounds.size.width - 2 * contentX;
-//    CGSize contentSize=[status.text sizeWithFont:[UIFont systemFontOfSize:14]];
-    CGSize contentSize = [TTTAttributedLabel sizeThatFitsAttributedString:chuli withConstraints:CGSizeMake(maxW, 0) limitedToNumberOfLines:0];
-    
+    CGSize contentSize = [status.text sizeWithFont:ZYStatusCellContentFont maxW:maxW];
     self.contentLabel.frame = CGRectMake(contentX, contentY, contentSize.width, contentSize.height);
-    [self.contentLabel setText:chuli];
-    
-    
-    
-    
-    
-    
-    
     /** 被转发的微博 */
     if (status.retweeted_status) {
         ZYStatus *retweeted_status = status.retweeted_status;
